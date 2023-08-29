@@ -1,0 +1,331 @@
+
+
+<PopupError>:
+    auto_dismiss: False
+    title: "Error"
+    size_hint: .25, .25
+    auto_dismiss: False
+    GridLayout:
+        cols: 1
+        Label:
+            size_hint: .5, .5
+            halign: 'center'
+            valign: 'middle'
+            text: 'Please enter your name!'
+            font_size: 12
+            text_size: self.width, None
+        Button:
+            size_hint: .5, .5
+            text: 'CLOSE'
+            font_size: 10
+            on_release: root.dismiss()
+
+
+WindowManager
+    MainWindow:
+    Page2:
+    Page3:
+    Page4:
+
+#-----------------------------------------------------------------------------------------------------------------------
+
+<MainWindow>:
+
+    name: "main"
+
+
+#    canvas:
+#        Color:
+#            rgba: .0, .3, .4, 1
+#        Line:
+#            width: 20
+#            rectangle: (self.x, self.y, self.width, self.height)
+
+    canvas.before:
+        Color:
+            rgba: 0.1, 0.5, 0.8, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    GridLayout:
+
+        cols:1
+
+
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'center'
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint: None, None
+                size: 10, 50
+                pos_hint: {'center_x': 0.5}
+
+
+                Label:
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text:"Ho-Ho-Ho!"
+                    font_size: 18
+
+                Label:
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text:"Let's Create a Christmas card!"
+                    font_size: 18
+
+
+
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'top'
+
+
+            Image:
+                size_hint: 1.6, 1.6
+
+                source: 'snowman_bg.png'
+
+
+            Image:
+                size_hint: 1.6, 1.6
+                source: 'snowman.png'
+
+
+
+        GridLayout:
+
+            cols:1
+
+            AnchorLayout:
+                anchor_x: 'center'
+                anchor_y: 'top'
+
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    Label:
+                        text: "Enter your Name"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint: None, None
+                        size: 200, 30
+                        pos_hint: {'center_x': 0.5}
+
+                        TextInput:
+                            id: user_name
+                            multiline:False
+                            size_hint: None, None
+                            size: 200, 30
+                            multiline: False
+                            halign: 'center'
+                            valign: 'middle'
+
+
+
+
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'center'
+
+
+            Button:
+                size_hint: .5, .5
+                text: "Start"
+                text_color: .1, .2, .7, 1
+                background_color:  .4, .7, .7, 1
+                size_hint_y: None
+                size_hint_x: None
+                width: 120
+                height: 60
+
+                on_release:
+                    app.root.current = "page2" if user_name.text != "" else root.open_popup()
+                    root.manager.transition.direction = "left"
+                    root.manager.transition.duration = 0.45
+
+
+
+
+#-----------------------------------------------------------------------------------------------------------------------
+
+<Page2>:
+    name: "page2"
+
+    canvas.before:
+        Color:
+            rgba: 0.1, 0.5, 0.8, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+    AnchorLayout:
+
+        # MAIN GRID
+        GridLayout:
+            cols:1
+            rows:5
+
+
+            # ROW 1
+            GridLayout:
+                cols:2
+                rows:1
+                size_hint: .2, .5
+
+
+
+                Button:
+                    text: "Home"
+                    on_release:
+                        app.root.current = "main"
+                        root.manager.transition.direction = "right"
+
+                Button:
+                    text: "Back"
+                    on_release:
+                        app.root.current = "main"
+                        root.manager.transition.direction = "right"
+
+
+            # ROW 2
+            GridLayout:
+                cols: 1
+                size_hint: 0.1, 1
+                AnchorLayout:
+                    anchor_x: 'center'
+                    anchor_y: 'top'
+
+                    BoxLayout:
+                        orientation: 'vertical'
+                        size_hint_y: None  # Remove the fixed height
+                        spacing: 10
+                        pos_hint: {'center_x': 0.5, 'top': 1.2}  # Adjust 'top' value to move it up
+
+                        Label:
+                            text: "Hello DASDA, here you can choose how and what!"
+                            font_size: 16
+                            size_hint_y: None  # Remove the fixed height
+                            height: self.texture_size[1]
+                            text_size: self.width, None
+
+
+            # ROW 4
+            AnchorLayout:
+                anchor_x: 'center'
+                anchor_y: 'bottom'
+
+
+                Image:
+                    size_hint: 1.4, 1.4
+                    source: 'snowman_bg.png'
+
+
+            # ROW 5
+            AnchorLayout:
+                anchor_x: 'center'
+                anchor_y: 'center'
+
+
+                # BUTTON NEXT
+                Button:
+                    size_hint: .5, .5
+                    text: "Start"
+                    text_color: .1, .2, .7, 1
+                    background_color:  .4, .7, .7, 1
+                    size_hint_y: None
+                    size_hint_x: None
+                    width: 120
+                    height: 60
+
+
+                    text: "Next"
+                    on_release:
+                        app.root.current = "page3"
+                        root.manager.transition.direction = "left"
+
+
+#-----------------------------------------------------------------------------------------------------------------------
+
+<Page3>:
+    name: "page3"
+
+    GridLayout:
+        cols:2
+        rows:2
+
+        # BUTTON HOME
+        Button:
+            text: "Home"
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+
+        # BUTTON BACK
+        Button:
+            text: "Back"
+            on_release:
+                app.root.current = "page2"
+                root.manager.transition.direction = "right"
+
+        GridLayout:
+            cols:2
+            rows:1
+
+            # TEXT ABOVE
+            Label:
+                text: "Choose up to 3 items"
+
+
+            # TEXT INPUT
+            TextInput:
+                id: item
+                multiline:False
+
+            # BUTTON NEXT
+            Button:
+                text:"Next"
+                on_release:
+                    app.root.current = "page4"
+                    root.manager.transition.direction = "left"
+
+
+#-----------------------------------------------------------------------------------------------------------------------
+
+<Page4>:
+    name: "page4"
+
+    GridLayout:
+        cols:2
+        rows:2
+
+        Label:
+            text:"Inventory"
+
+        # BUTTON
+        Button:
+            text: "Home"
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+
+        Button:
+            text: "Back"
+            on_release:
+                app.root.current = "page3"
+                root.manager.transition.direction = "right"
+
+
+        Button:
+            text: "Confirm"
+
+
+        Button:
+            text: "Edit"
+
